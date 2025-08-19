@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio - Developer</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #1a1a2e 0%,
+          #16213e 50%,
+          #0f3460 100%
+        );
+        color: white;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      header {
+        padding: 20px 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(26, 26, 46, 0.9);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #00d4ff;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: #00d4ff;
+      }
+
+      /* Main Content */
+      main {
+        margin-top: 80px;
+        display: flex;
+        align-items: center;
+        min-height: calc(100vh - 80px);
+        padding: 40px 0;
+      }
+
+      .hero-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 60px;
+      }
+
+      .text-content {
+        flex: 1;
+        max-width: 500px;
+      }
+
+      .greeting {
+        font-size: 48px;
+        margin-bottom: 10px;
+        font-weight: 300;
+      }
+
+      .name {
+        font-size: 64px;
+        font-weight: bold;
+        color: #00d4ff;
+        margin-bottom: 20px;
+        background: linear-gradient(45deg, #00d4ff, #0099cc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .role {
+        font-size: 24px;
+        margin-bottom: 30px;
+        color: #cccccc;
+      }
+
+      .role span {
+        color: #00d4ff;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+      }  
+
+      .social-link {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #00d4ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #00d4ff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .social-link:hover {
+        background: #00d4ff;
+        color: rgb(255, 0, 0);
+        transform: translateY(-3px);
+      }
+      .download-btn {
+        background: linear-gradient(45deg, #00d4ff, #0099cc);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+      }
+
+      /* Avatar Section */
+      .avatar-section {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .avatar-container {
+        position: relative;
+        width: 400px;
+        height: 400px;
+      }
+
+      .avatar-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #00d4ff20, #0099cc20);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+
+      .avatar-image {
+        position: relative;
+        width: 350px;
+        height: 350px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #00d4ff;
+        margin: 25px;
+        box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+      }
+
+      .floating-elements {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .floating-element {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #00d4ff;
+        border-radius: 50%;
+        opacity: 0.7;
+        animation: float 3s infinite ease-in-out;
+      }
+
+      .floating-element:nth-child(1) {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      .floating-element:nth-child(2) {
+        top: 60%;
+        right: 10%;
+        animation-delay: 1s;
+      }
+
+      .floating-element:nth-child(3) {
+        bottom: 20%;
+        left: 20%;
+        animation-delay: 2s;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .hero-content {
+          flex-direction: column;
+          text-align: center;
+          gap: 30px;
+        }
+
+        .greeting {
+          font-size: 36px;
+        }
+
+        .name {
+          font-size: 48px;
+        }
+
+        .avatar-container {
+          width: 300px;
+          height: 300px;
+        }
+
+        .avatar-image {
+          width: 250px;
+          height: 250px;
+        }
+
+        .nav-links {
+          gap: 15px;
+        }
+      }
+
+      /* Animations */
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.7;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 0.9;
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      /* Background particles */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #00d4ff;
+        border-radius: 50%;
+        opacity: 0.5;
+        animation: particle-float 10s infinite linear;
+      }
+
+      @keyframes particle-float {
+        0% {
+          transform: translateY(100vh) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.5;
+        }
+        90% {
+          opacity: 0.5;
+        }
+        100% {
+          transform: translateY(-100px) translateX(100px);
+          opacity: 0;
+        }
+      }
+      footer {
+      background: #333;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    footer h3 {
+      color: #f1c40f; /* Yellow heading */
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    footer h3::after {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: #00bfff; /* Blue underline */
+      margin-top: 5px;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    footer ul li {
+      margin: 8px 0;
+    }
+
+    footer ul li a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer ul li a:hover {
+      color: #fff;
+    }
+
+    .social {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .social a {
+      width: 40px;
+      height: 40px;
+      background: #1e90ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .social a:hover {
+      background: #f1c40f;
+      color: #333;
+    }
+
+    .bottom {
+      background: #222;
+      text-align: center;
+      padding: 15px;
+      color: #aaa;
+      font-size: 14px;
+    }
+      
+    </style>
+  </head>
+  <body>
+    <!-- Background particles -->
+    <div class="particles">
+      <div class="particle" style="left: 10%; animation-delay: 0s"></div>
+      <div class="particle" style="left: 20%; animation-delay: 2s"></div>
+      <div class="particle" style="left: 30%; animation-delay: 4s"></div>
+      <div class="particle" style="left: 40%; animation-delay: 1s"></div>
+      <div class="particle" style="left: 50%; animation-delay: 3s"></div>
+      <div class="particle" style="left: 60%; animation-delay: 5s"></div>
+      <div class="particle" style="left: 70%; animation-delay: 1.5s"></div>
+      <div class="particle" style="left: 80%; animation-delay: 3.5s"></div>
+      <div class="particle" style="left: 90%; animation-delay: 0.5s"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <nav>
+        <div class="logo">EgoDvJunior.</div>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <div class="container">
+        <div class="hero-content">
+          <div class="text-content">
+            <h1 class="greeting">Hello, It's Me</h1>
+            <h2 class="name">Devith</h2>
+            <p class="role">And I'm a <span>Developer</span></p>
+
+            <div class="social-links">
+              <a href="#" class="social-link"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  id="Facebook--Streamline-Svg-Logos"
+                  height="24"
+                  width="24"
+                >
+                  <desc>
+                    Facebook Streamline Icon: https://streamlinehq.com
+                  </desc>
+                  <path
+                    fill="#1877f2"
+                    d="M23.75 12C23.75 5.51065 18.48935 0.25 12 0.25S0.25 5.51065 0.25 12c0 5.864775 4.2968 10.725775 9.91405 11.60725V15.396475H7.180675V12h2.983375V9.411325c0 -2.94485 1.7542 -4.571475 4.43815 -4.571475 1.28555 0 2.630225 0.229475 2.630225 0.229475v2.891625h-1.48165c-1.45965 0 -1.914825 0.905725 -1.914825 1.83495V12h3.258775l-0.52095 3.396475H13.83595V23.60725C19.4532 22.725775 23.75 17.864775 23.75 12Z"
+                    stroke-width="0.25"
+                  ></path>
+                  <path
+                    fill="#ffffff"
+                    d="M16.573775 15.396475 17.094725 12H13.83595v-2.2041c0 -0.929225 0.455175 -1.83495 1.914825 -1.83495h1.48165V5.069325s-1.344675 -0.229475 -2.630225 -0.229475c-2.68395 0 -4.43815 1.626625 -4.43815 4.571475V12H7.180675v3.396475h2.983375V23.60725C10.762275 23.701125 11.375425 23.75 12 23.75c0.624575 0 1.237725 -0.048875 1.83595 -0.14275V15.396475h2.737825Z"
+                    stroke-width="0.25"
+                  ></path></svg
+              ></a>
+              <a href="#" class="social-link"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 96 96"
+                  id="Telegram--Streamline-Svg-Logos"
+                  height="24"
+                  width="24"
+                >
+                  <desc>
+                    Telegram Streamline Icon: https://streamlinehq.com
+                  </desc>
+                  <path
+                    fill="url(#a)"
+                    d="M48 1C35.5377 1 23.5747 5.95483 14.7695 14.7659 5.95703 23.5769 1 35.5399 1 48c0 12.4601 4.95703 24.4231 13.7695 33.2341C23.5747 90.0452 35.5377 95 48 95c12.4623 0 24.4253-4.9548 33.2305-13.7659C90.043 72.4231 95 60.4601 95 48c0-12.4601-4.957-24.4231-13.7695-33.2341C72.4253 5.95483 60.4623 1 48 1Z"
+                  ></path>
+                  <path
+                    fill="#ffffff"
+                    d="M22.2748 47.5041c13.7034-5.969 22.8391-9.9045 27.4069-11.8058 13.0572-5.4292 15.767-6.3722 17.5368-6.4041.3893-.0063 1.2558.0899 1.8213.5474.47.3856.6022.907.6683 1.2727.0587.3657.1395 1.1993.0734 1.8499-.705 7.4319-3.7673 25.4667-5.3242 33.7908-.6536 3.5222-1.9534 4.7031-3.2092 4.8184-2.7319.2511-4.8028-1.8036-7.4466-3.5362-4.1345-2.712-6.4698-4.3996-10.4869-7.0456-4.6412-3.0579-1.6303-4.7389 1.0135-7.4855.6903-.7189 12.7194-11.6574 12.947-12.6496.0294-.1241.0588-.5867-.2203-.8305-.2717-.2446-.6756-.1609-.9694-.0948-.4186.094-7.0206 4.4621-19.8281 13.1035-1.8727 1.2881-3.5691 1.916-5.0966 1.8829-1.6743-.036-4.9056-.9488-7.307-1.7287-2.9375-.9569-5.2801-1.4629-5.0745-3.088.1028-.846 1.2704-1.7119 3.4956-2.5968Z"
+                  ></path>
+                  <defs>
+                    <linearGradient
+                      id="a"
+                      x1="4701"
+                      x2="4701"
+                      y1="1"
+                      y2="9401"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#2aabee"></stop>
+                      <stop offset="1" stop-color="#229ed9"></stop>
+                    </linearGradient>
+                  </defs></svg
+              ></a>
+
+              <a href="#" class="social-link"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  id="Instagram-Icon--Streamline-Svg-Logos"
+                  height="24"
+                  width="24"
+                >
+                  <desc>
+                    Instagram Icon Streamline Icon: https://streamlinehq.com
+                  </desc>
+                  <path
+                    fill="#e92326"
+                    d="M11.999975 2.36716c3.1374 0 3.509 0.01194 4.747975 0.06847 1.145625 0.052285 1.767775 0.243695 2.181875 0.40457 0.5484 0.21315 0.939875 0.467825 1.351 0.878975 0.41115 0.411125 0.665825 0.8026 0.878925 1.351 0.160925 0.4141 0.352325 1.03625 0.404625 2.181825 0.056525 1.239025 0.068475 1.610625 0.068475 4.748025 0 3.1374 -0.01195 3.509 -0.068475 4.747975 -0.0523 1.145625 -0.2437 1.767775 -0.404625 2.18185 -0.2131 0.548425 -0.467775 0.939875 -0.878925 1.351025 -0.411125 0.41115 -0.8026 0.665825 -1.351 0.878925 -0.4141 0.160925 -1.03625 0.352325 -2.181875 0.404625 -1.2388 0.056525 -1.610375 0.06845 -4.747975 0.06845 -3.137575 0 -3.509175 -0.011925 -4.747975 -0.06845 -1.145625 -0.0523 -1.767775 -0.2437 -2.181825 -0.404625 -0.54845 -0.2131 -0.9399 -0.467775 -1.35105 -0.878925 -0.41115 -0.41115 -0.665825 -0.8026 -0.878925 -1.351025 -0.160925 -0.414075 -0.3523325 -1.036225 -0.4046175 -2.1818 -0.05653 -1.239025 -0.06847 -1.610625 -0.06847 -4.748025 0 -3.1374 0.01194 -3.509 0.06847 -4.747975 0.052285 -1.145625 0.2436925 -1.767775 0.4046175 -2.181875 0.2131 -0.5484 0.467775 -0.939875 0.878925 -1.351 0.41115 -0.41115 0.8026 -0.665825 1.35105 -0.878975 0.41405 -0.160875 1.0362 -0.352285 2.181775 -0.40457 1.239025 -0.05653 1.610625 -0.06847 4.748025 -0.06847Zm0 -2.11716c-3.191125 0 -3.591225 0.013525 -4.844475 0.07071 -1.2507 0.0570875 -2.1048 0.2556875 -2.85225 0.5461725 -0.77265 0.30028 -1.427925 0.7020525 -2.081145 1.3552675 -0.6532175 0.653225 -1.05499 1.308475 -1.3552675 2.08115 -0.290485 0.747425 -0.489085 1.60155 -0.546175 2.852225C0.26348 8.40875 0.25 8.8089 0.25 12.000025s0.01348 3.591275 0.0706625 4.844475c0.05709 1.2507 0.25569 2.1048 0.546175 2.85225 0.3002775 0.7726 0.70205 1.427925 1.3552675 2.08115 0.65322 0.6532 1.308495 1.054975 2.081145 1.355275 0.74745 0.290475 1.60155 0.489075 2.85225 0.546175 1.25325 0.057175 1.65335 0.07065 4.844475 0.07065s3.591275 -0.013475 4.8445 -0.07065c1.250675 -0.0571 2.1048 -0.2557 2.852225 -0.546175 0.772675 -0.3003 1.427925 -0.702075 2.08115 -1.355275 0.653225 -0.653225 1.054975 -1.3085 1.355275 -2.08115 0.290475 -0.74745 0.489075 -1.60155 0.546175 -2.85225 0.057175 -1.2532 0.0707 -1.65335 0.0707 -4.844475s-0.013525 -3.591275 -0.0707 -4.8445c-0.0571 -1.250675 -0.2557 -2.1048 -0.546175 -2.852225 -0.3003 -0.772675 -0.70205 -1.427925 -1.355275 -2.08115 -0.653225 -0.653215 -1.308475 -1.0549875 -2.08115 -1.3552675 -0.747425 -0.290485 -1.60155 -0.489085 -2.852225 -0.5461725C15.59125 0.263525 15.1911 0.25 11.999975 0.25Zm0 5.716225c-3.33235 0 -6.0338 2.701425 -6.0338 6.0338 0 3.33235 2.70145 6.0338 6.0338 6.0338 3.332375 0 6.0338 -2.70145 6.0338 -6.0338 0 -3.332375 -2.701425 -6.0338 -6.0338 -6.0338Zm0 9.9505c-2.1631 0 -3.9167 -1.7536 -3.9167 -3.9167s1.7536 -3.9167 3.9167 -3.9167 3.9167 1.7536 3.9167 3.9167 -1.7536 3.9167 -3.9167 3.9167Zm7.682175 -10.1889c0 0.77875 -0.63125 1.410025 -1.409975 1.410025 -0.77875 0 -1.410025 -0.631275 -1.410025 -1.410025 0 -0.778725 0.631275 -1.409975 1.410025 -1.409975 0.778725 0 1.409975 0.63125 1.409975 1.409975Z"
+                    stroke-width="0.25"
+                  ></path></svg
+              ></a>
+              <a href="#" class="social-link"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  id="Youtube-Icon--Streamline-Svg-Logos"
+                  height="24"
+                  width="24"
+                >
+                  <desc>
+                    Youtube Icon Streamline Icon: https://streamlinehq.com
+                  </desc>
+                  <path
+                    fill="#ff0000"
+                    d="M23.2314 6.3482c-0.2743 -1.0137 -1.066175 -1.80555 -2.079875 -2.07985 -1.823625 -0.49735 -9.163425 -0.49735 -9.163425 -0.49735s-7.339775 0.015075 -9.1634 0.512425c-1.0137075 0.2743 -1.805565 1.06615 -2.0798675 2.07985 -0.551613 3.24035 -0.7656271 8.17775 0.0150725 11.2885 0.2743025 1.0137 1.06616 1.80555 2.079845 2.07985 1.82365 0.49735 9.163425 0.49735 9.163425 0.49735s7.3398 0 9.163425 -0.49735c1.0137 -0.2743 1.80555 -1.06615 2.079875 -2.07985 0.58175 -3.244875 0.7611 -8.17925 -0.015075 -11.303575Z"
+                    stroke-width="0.25"
+                  ></path>
+                  <path
+                    fill="#ffffff"
+                    d="m9.652225 15.526575 6.08885 -3.526725 -6.08885 -3.5267v7.053425Z"
+                    stroke-width="0.25"
+                  ></path></svg
+              ></a>
+            </div>
+
+            <a href="#" class="download-btn">About Me More</a>
+          </div>
+
+          <div class="avatar-section">
+            <div class="avatar-container">
+              <div class="avatar-bg"></div>
+              <img src="/./img/mypt.png" alt="Avatar" class="avatar-image" />
+              <div class="floating-elements">
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- footer -->
+      <footer>
+    <!-- Products -->
+    <div>
+      <h3>Products</h3>
+      <ul>
+        <li><a href="#">Teams</a></li>
+        <li><a href="#">Advertising</a></li>
+        <li><a href="#">Talent</a></li>
+      </ul>
+    </div>
+
+    <!-- Network -->
+    <div>
+      <h3>Network</h3>
+      <ul>
+        <li><a href="#">Technology</a></li>
+        <li><a href="#">Science</a></li>
+        <li><a href="#">Business</a></li>
+        <li><a href="#">Professional</a></li>
+        <li><a href="#">API</a></li>
+      </ul>
+    </div>
+
+    <!-- Company -->
+    <div>
+      <h3>Company</h3>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Legal</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Follow Us -->
+    <div>
+      <h3>Follow Us</h3>
+      <div class="social">
+        <a href="https://web.facebook.com/devith.toti" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Facebook--Streamline-Svg-Logos" height="24" width="24">
+  <desc>
+    Facebook Streamline Icon: https://streamlinehq.com
+  </desc>
+  <path fill="#1877f2" d="M23.75 12C23.75 5.51065 18.48935 0.25 12 0.25S0.25 5.51065 0.25 12c0 5.864775 4.2968 10.725775 9.91405 11.60725V15.396475H7.180675V12h2.983375V9.411325c0 -2.94485 1.7542 -4.571475 4.43815 -4.571475 1.28555 0 2.630225 0.229475 2.630225 0.229475v2.891625h-1.48165c-1.45965 0 -1.914825 0.905725 -1.914825 1.83495V12h3.258775l-0.52095 3.396475H13.83595V23.60725C19.4532 22.725775 23.75 17.864775 23.75 12Z" stroke-width="0.25"></path>
+  <path fill="#ffffff" d="M16.573775 15.396475 17.094725 12H13.83595v-2.2041c0 -0.929225 0.455175 -1.83495 1.914825 -1.83495h1.48165V5.069325s-1.344675 -0.229475 -2.630225 -0.229475c-2.68395 0 -4.43815 1.626625 -4.43815 4.571475V12H7.180675v3.396475h2.983375V23.60725C10.762275 23.701125 11.375425 23.75 12 23.75c0.624575 0 1.237725 -0.048875 1.83595 -0.14275V15.396475h2.737825Z" stroke-width="0.25"></path>
+</svg></a>
+        <a href="https://www.tiktok.com/@bonten.izana1?is_from_webapp=1&sender_device=pc" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Tiktok-Icon--Streamline-Svg-Logos" height="24" width="24">
+  <desc>
+    Tiktok Icon Streamline Icon: https://streamlinehq.com
+  </desc>
+  <path fill="#ff004f" d="M17.0143 8.73295c1.517375 1.084125 3.3762 1.721975 5.38385 1.721975V6.593625c-0.37995 0.000075 -0.758925 -0.039525 -1.13065 -0.11825v3.039425c-2.007475 0 -3.866075 -0.637875 -5.383825 -1.7219v7.8798c0 3.9419 -3.197175 7.1372 -7.140825 7.1372 -1.471475 0 -2.83915 -0.444625 -3.975275 -1.207175 1.2967 1.32515 3.10505 2.147225 5.105675 2.147225 3.9439 0 7.141225 -3.1953 7.141225 -7.137325V8.73295h-0.000175Zm1.394775 -3.895575c-0.77545 -0.84675 -1.2846 -1.941025 -1.394775 -3.1507875V1.1899425h-1.07145c0.2697 1.5376075 1.1896 2.8512325 2.466225 3.6474325ZM7.26195 18.577825c-0.43325 -0.567775 -0.6674 -1.26235 -0.66635 -1.9765 0 -1.802875 1.462375 -3.26465 3.266525 -3.26465 0.336225 -0.0001 0.67045 0.051375 0.990875 0.152975V9.54205c-0.374475 -0.0513 -0.7524 -0.073075 -1.13015 -0.065075v3.072625c-0.320675 -0.101625 -0.65505 -0.15325 -0.991375 -0.152925 -1.80415 0 -3.266425 1.461625 -3.266425 3.26475 0 1.274925 0.730925 2.3787 1.7969 2.9164Z" stroke-width="0.25"></path>
+  <path fill="#000000" d="M15.8836 7.792825c1.517775 1.084025 3.376375 1.721875 5.38385 1.721875V6.4753c-1.120575 -0.23855 -2.112575 -0.82385 -2.858425 -1.637925 -1.2767 -0.796275 -2.196525 -2.1099 -2.466225 -3.6474325H13.128425V16.61245c-0.006375 1.79795 -1.466225 3.253775 -3.266525 3.253775 -1.060875 0 -2.00335 -0.50545 -2.60025 -1.2884 -1.065875 -0.5377 -1.796825 -1.64155 -1.796825 -2.916325 0 -1.80295 1.462275 -3.26475 3.266425 -3.26475 0.345675 0 0.67885 0.0538 0.991375 0.152925V9.47705c-3.874375 0.08 -6.990325 3.244075 -6.990325 7.135475 0 1.94255 0.77595 3.703575 2.0353 4.990275 1.136125 0.762475 2.5038 1.207175 3.975275 1.207175 3.94375 0 7.140825 -3.19545 7.140825 -7.137275l-0.0001 -7.879875Z" stroke-width="0.25"></path>
+  <path fill="#00f2ea" d="M21.2675 6.47535v-0.821825c-1.01045 0.001525 -2.0011 -0.281325 -2.8584 -0.8162 0.758925 0.830475 1.75825 1.403075 2.8584 1.638025ZM15.942875 1.189985c-0.025725 -0.1469475 -0.0455 -0.29486 -0.0592 -0.4433375V0.25H11.997775v15.422675c-0.006225 1.7977 -1.466 3.253525 -3.26645 3.253525 -0.528575 0 -1.02765 -0.1254 -1.469625 -0.34825 0.5969 0.782875 1.5394 1.288225 2.600275 1.288225 1.800125 0 3.260225 -1.45565 3.2665 -3.2536V1.189985h2.8144ZM9.72285 9.477075v-0.8749c-0.3247 -0.04435 -0.652075 -0.0666 -0.979825 -0.06645 -3.944075 0 -7.1412175 3.195375 -7.1412175 7.13695 0 2.471125 1.2565425 4.64895 3.1659425 5.93 -1.25935 -1.286625 -2.0353 -3.0477 -2.0353 -4.990175 0 -3.891325 3.11585 -7.0554 6.9904 -7.135425Z" stroke-width="0.25"></path>
+</svg></a>
+        <a href="https://www.threads.com/@manyin0?xmt=AQF0sMRe0rvpKPkwXwZgzf1jQBJbNLkQ5Nctey0jvyhycuU" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Instagram-Icon--Streamline-Svg-Logos" height="24" width="24">
+  <desc>
+    Instagram Icon Streamline Icon: https://streamlinehq.com
+  </desc>
+  <path fill="#f10004" d="M11.999975 2.36716c3.1374 0 3.509 0.01194 4.747975 0.06847 1.145625 0.052285 1.767775 0.243695 2.181875 0.40457 0.5484 0.21315 0.939875 0.467825 1.351 0.878975 0.41115 0.411125 0.665825 0.8026 0.878925 1.351 0.160925 0.4141 0.352325 1.03625 0.404625 2.181825 0.056525 1.239025 0.068475 1.610625 0.068475 4.748025 0 3.1374 -0.01195 3.509 -0.068475 4.747975 -0.0523 1.145625 -0.2437 1.767775 -0.404625 2.18185 -0.2131 0.548425 -0.467775 0.939875 -0.878925 1.351025 -0.411125 0.41115 -0.8026 0.665825 -1.351 0.878925 -0.4141 0.160925 -1.03625 0.352325 -2.181875 0.404625 -1.2388 0.056525 -1.610375 0.06845 -4.747975 0.06845 -3.137575 0 -3.509175 -0.011925 -4.747975 -0.06845 -1.145625 -0.0523 -1.767775 -0.2437 -2.181825 -0.404625 -0.54845 -0.2131 -0.9399 -0.467775 -1.35105 -0.878925 -0.41115 -0.41115 -0.665825 -0.8026 -0.878925 -1.351025 -0.160925 -0.414075 -0.3523325 -1.036225 -0.4046175 -2.1818 -0.05653 -1.239025 -0.06847 -1.610625 -0.06847 -4.748025 0 -3.1374 0.01194 -3.509 0.06847 -4.747975 0.052285 -1.145625 0.2436925 -1.767775 0.4046175 -2.181875 0.2131 -0.5484 0.467775 -0.939875 0.878925 -1.351 0.41115 -0.41115 0.8026 -0.665825 1.35105 -0.878975 0.41405 -0.160875 1.0362 -0.352285 2.181775 -0.40457 1.239025 -0.05653 1.610625 -0.06847 4.748025 -0.06847Zm0 -2.11716c-3.191125 0 -3.591225 0.013525 -4.844475 0.07071 -1.2507 0.0570875 -2.1048 0.2556875 -2.85225 0.5461725 -0.77265 0.30028 -1.427925 0.7020525 -2.081145 1.3552675 -0.6532175 0.653225 -1.05499 1.308475 -1.3552675 2.08115 -0.290485 0.747425 -0.489085 1.60155 -0.546175 2.852225C0.26348 8.40875 0.25 8.8089 0.25 12.000025s0.01348 3.591275 0.0706625 4.844475c0.05709 1.2507 0.25569 2.1048 0.546175 2.85225 0.3002775 0.7726 0.70205 1.427925 1.3552675 2.08115 0.65322 0.6532 1.308495 1.054975 2.081145 1.355275 0.74745 0.290475 1.60155 0.489075 2.85225 0.546175 1.25325 0.057175 1.65335 0.07065 4.844475 0.07065s3.591275 -0.013475 4.8445 -0.07065c1.250675 -0.0571 2.1048 -0.2557 2.852225 -0.546175 0.772675 -0.3003 1.427925 -0.702075 2.08115 -1.355275 0.653225 -0.653225 1.054975 -1.3085 1.355275 -2.08115 0.290475 -0.74745 0.489075 -1.60155 0.546175 -2.85225 0.057175 -1.2532 0.0707 -1.65335 0.0707 -4.844475s-0.013525 -3.591275 -0.0707 -4.8445c-0.0571 -1.250675 -0.2557 -2.1048 -0.546175 -2.852225 -0.3003 -0.772675 -0.70205 -1.427925 -1.355275 -2.08115 -0.653225 -0.653215 -1.308475 -1.0549875 -2.08115 -1.3552675 -0.747425 -0.290485 -1.60155 -0.489085 -2.852225 -0.5461725C15.59125 0.263525 15.1911 0.25 11.999975 0.25Zm0 5.716225c-3.33235 0 -6.0338 2.701425 -6.0338 6.0338 0 3.33235 2.70145 6.0338 6.0338 6.0338 3.332375 0 6.0338 -2.70145 6.0338 -6.0338 0 -3.332375 -2.701425 -6.0338 -6.0338 -6.0338Zm0 9.9505c-2.1631 0 -3.9167 -1.7536 -3.9167 -3.9167s1.7536 -3.9167 3.9167 -3.9167 3.9167 1.7536 3.9167 3.9167 -1.7536 3.9167 -3.9167 3.9167Zm7.682175 -10.1889c0 0.77875 -0.63125 1.410025 -1.409975 1.410025 -0.77875 0 -1.410025 -0.631275 -1.410025 -1.410025 0 -0.778725 0.631275 -1.409975 1.410025 -1.409975 0.778725 0 1.409975 0.63125 1.409975 1.409975Z" stroke-width="0.25"></path>
+</svg></a>
+        <a href="https://youtube.com/@yann-d7n?si=w0D-rXQIdm53_zhI" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" id="Youtube-Icon--Streamline-Svg-Logos" height="24" width="24">
+  <desc>
+    Youtube Icon Streamline Icon: https://streamlinehq.com
+  </desc>
+  <path fill="#ff0000" d="M23.2314 6.3482c-0.2743 -1.0137 -1.066175 -1.80555 -2.079875 -2.07985 -1.823625 -0.49735 -9.163425 -0.49735 -9.163425 -0.49735s-7.339775 0.015075 -9.1634 0.512425c-1.0137075 0.2743 -1.805565 1.06615 -2.0798675 2.07985 -0.551613 3.24035 -0.7656271 8.17775 0.0150725 11.2885 0.2743025 1.0137 1.06616 1.80555 2.079845 2.07985 1.82365 0.49735 9.163425 0.49735 9.163425 0.49735s7.3398 0 9.163425 -0.49735c1.0137 -0.2743 1.80555 -1.06615 2.079875 -2.07985 0.58175 -3.244875 0.7611 -8.17925 -0.015075 -11.303575Z" stroke-width="0.25"></path>
+  <path fill="#ffffff" d="m9.652225 15.526575 6.08885 -3.526725 -6.08885 -3.5267v7.053425Z" stroke-width="0.25"></path>
+</svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="bottom">
+    © 2025 All Rights Reserved
+  </div>
+
+  </body>
+</html>

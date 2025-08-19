@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Animated Site</title>
+
+  <!-- Icons (your original CDN) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+    integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    /* ----------- Base Reset ----------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --nav-h: 100px;
+      --brand1: #09203f;
+      --brand2: #537895;
+      --accent: red;
+      --text-on-dark: #e5e5e5;
+    }
+    html, body { width: 100%; }
+    body {
+      min-height: 100vh;
+      background-color: #ffffff;
+      color: #111;
+      scroll-behavior: smooth;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, "Koulen", sans-serif;
+    }
+
+    /* ----------- Top strip ----------- */
+    .img {
+      background-color: aqua;
+      width: 100%;
+      height: 150px;
+      background-image: url("/./img/bg1.svg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    header {
+      width: 100%;
+      background-image: url("/./img/bg2.svg");
+      color: white;
+      height: 100px;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header ul {
+      display: flex;
+      padding-left: 30px;
+      gap: 15px;
+      list-style: none;
+    }
+    header li {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      top: 27px;
+      cursor: default;
+    }
+    header i { font-size: 2.2rem; transition: transform .35s ease; }
+    header li a { font-size: 20px; }
+    header span {
+      padding: 1px 8px;
+      background-color: #f8f8f8;
+      color: #000;
+      border-radius: 10px;
+      font-size: 14px;
+      position: absolute;
+      bottom: 50px;
+      display: none;
+      white-space: nowrap;
+    }
+    header i:hover { transform: scale(1.15) rotate(-5deg); }
+    header li:hover span { display: block; }
+
+    .text-header {
+      position: relative;
+      left: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .text-header i { font-size: 1.2rem; }
+    header p {
+      font-size: 1rem;
+      position: static;
+    }
+
+    /* ----------- Steady Sticky Nav ----------- */
+    nav {
+      width: 100%;
+      height: var(--nav-h);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: saturate(140%) blur(4px);
+      background-image: linear-gradient(to right, var(--brand1), var(--brand2));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: box-shadow .25s ease;
+    }
+    nav.is-stuck { box-shadow: 0 8px 20px rgba(0,0,0,.25); }
+    .logo {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding-left: 16px;
+    }
+    .logo img {
+      width: 150px;
+      height: 100px;
+      object-fit: contain;
+      filter: drop-shadow(1px 8px 16px #ffffff80);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Buttons styled as neumorphic */
+    .btn {
+      min-width: 120px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      color: #111;
+      background: #dcdcdc;
+      box-shadow: -2px -2px 4px #fff, 2px 2px 4px #505050;
+      text-decoration: none;
+      transition: transform .15s ease, box-shadow .2s ease, opacity .2s ease;
+      cursor: pointer;
+    }
+    .btn:hover {
+      box-shadow: inset -2px -2px 4px #fff, inset 2px 2px 4px #505050;
+      transform: translateY(-1px);
+    }
+
+    nav ul {
+      display: flex;
+      padding-right: 24px;
+      list-style: none;
+      gap: 24px;
+      align-items: center;
+    }
+    nav ul li a {
+      font-size: 20px;
+      color: var(--text-on-dark);
+      text-decoration: none;
+      padding: 6px 0;
+      display: inline-block;
+      position: relative;
+      transition: color .2s ease;
+    }
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 0%;
+      height: 3px;
+      background: #0d5bff;
+      transition: width .25s ease;
+    }
+    nav ul li a:hover {
+      color: #bcd3ff;
+    }
+    nav ul li a:hover::after { width: 100%; }
+    nav ul li i { color: var(--text-on-dark); font-size: 20px; }
+
+    /* ----------- Slideshow ----------- */
+    main { width: 100%; }
+    section.hero {
+      width: 100%;
+      height: clamp(380px, 70vh, 800px);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .photo {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      animation: fadeCycle 15s infinite;
+      will-change: opacity, transform;
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.05);
+    }
+    .photo:nth-child(1) { animation-delay: 0s; }
+    .photo:nth-child(2) { animation-delay: 3s; }
+    .photo:nth-child(3) { animation-delay: 6s; }
+    .photo:nth-child(4) { animation-delay: 9s; }
+    .photo:nth-child(5) { animation-delay: 12s; }
+
+    @keyframes fadeCycle {
+      0% { opacity: 0; transform: scale(1.02); }
+      10% { opacity: 1; transform: scale(1); }
+      20% { opacity: 1; transform: scale(1); }
+      30% { opacity: 0; transform: scale(1.02); }
+      100% { opacity: 0; }
+    }
+
+    /* ----------- Content Sections ----------- */
+    .container,
+    .con2 {
+      width: 100%;
+      min-height: 800px;
+      background-color: rgb(50, 42, 42);
+      color: #fff;
+    }
+    .top, .t2 { padding: 20px 16px; }
+    .top h1, .t2 h1 {
+      font-size: 30px;
+      color: var(--accent);
+      font-family: "Koulen", sans-serif;
+      letter-spacing: .5px;
+    }
+    .bottom, .b2 {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 16px 40px 16px;
+      flex-wrap: wrap;
+    }
+    .bottom .left, .b2 .l2, .bottom .right, .b2 .r2 {
+      flex: 1 1 480px;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bottom .left { animation: slideInLeft 0.9s ease both; }
+    .b2 .l2    { animation: slideInRight 0.9s ease both; }
+
+    .bottom .left img, .b2 .l2 img {
+      width: min(500px, 90%);
+      height: auto;
+      border-radius: 18px;
+      border: 2px solid #777;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      object-fit: cover;
+    }
+
+    .bottom .right, .b2 .r2 {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 30px 20px;
+    }
+    .bottom .right { animation: slideInRight 0.9s ease both; }
+    .b2 .r2       { animation: slideInLeft 0.9s ease both; }
+
+    .bottom .right h1, .b2 .r2 h1 {
+      font-size: 34px;
+      color: var(--accent);
+    }
+    .bottom .right p, .b2 .r2 p {
+      color: #f1f1f1;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      text-align: justify;
+      max-width: 70ch;
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(-60px); opacity: 0; }
+      to   { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(60px); opacity: 0; }
+      to   { transform: translateX(0); opacity: 1; }
+    }
+
+    /* ----------- Session2 (horizontal scroll) ----------- */
+    .session2 {
+      width: 100%;
+      background-color: rgb(50, 42, 42);
+      padding: 32px 16px 50px;
+    }
+    .h1 { display: flex; justify-content: center; margin-bottom: 24px; }
+    .session2 h1 { color: var(--accent); font-size: 40px; }
+
+    .scroll {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .scroll::-webkit-scrollbar { display: none; }
+    .scrol-box {
+      width: 160px;
+      height: 100%;
+      background-color: #000;
+      border: 1px solid grey;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      transition: transform .2s ease, border .2s ease, color .2s ease;
+    }
+    .scrol-box:hover {
+      border: 3px solid lightblue;
+      transform: translateY(-4px);
+      color: dodgerblue;
+    }
+
+    /* ----------- Responsive tweaks ----------- */
+    @media (max-width: 900px) {
+      :root { --nav-h: 76px; }
+      header { height: auto; padding: 12px 0; }
+      header ul { padding-left: 16px; }
+      .text-header { left: 16px; flex-wrap: wrap; }
+      .logo img { width: 120px; height: 76px; }
+      nav ul { gap: 14px; padding-right: 12px; }
+      nav ul li a { font-size: 18px; }
+      .btn { min-width: 108px; height: 40px; font-size: .95rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top banner -->
+  <div class="img"></div>
+
+  <!-- Social header -->
+  <header>
+    <ul>
+      <li>
+        <i class="fa-brands fa-square-facebook"></i>
+        <span>Facebook</span>
+      </li>
+      <li>
+        <i class="fa-brands fa-instagram"></i>
+        <span>Instagram</span>
+      </li>
+      <li>
+        <i class="fa-brands fa-youtube"></i>
+        <span>YouTube</span>
+      </li>
+    </ul>
+    <div class="text-header">
+      <i class="fa-solid fa-message"></i>
+      <p>Have questions? Call now +1 (818) 23 45 678 / feel free to contact me now</p>
+    </div>
+  </header>
+
+  <!-- Steady sticky nav -->
+  <nav id="mainNav">
+    <div class="logo">
+      <img src="/./img/wanglin.png" alt="Logo">
+      <!-- Open login in a new blank tab -->
+      <a href="/./formm/form.htm]" target="_blank" class="btn">ចូលគណនី</a>
+      <a href="#" class="btn">ចុះឈ្មោះ</a>
+    </div>
+
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><i class="fa-solid fa-magnifying-glass"></i></li>
+      <li><i class="fa-solid fa-cart-shopping"></i></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Slideshow -->
+    <section class="hero">
+      <div class="photo">
+        <img src="https://www.baltana.com/files/wallpapers-36/Jujutsu-Kaisen-Widescreen-Wallpapers-126415.jpg" alt="">
+      </div>
+      <div class="photo">
+        <img src="https://www.baltana.com/files/wallpapers-36/Jujutsu-Kaisen-Background-HD-Wallpapers-126400.jpg" alt="">
+      </div>
+      <div class="photo">
+        <img src="https://www.baltana.com/files/wallpapers-36/Jujutsu-Kaisen-HD-Wallpapers-126410.jpg" alt="">
+      </div>
+      <div class="photo">
+        <img src="https://www.baltana.com/files/wallpapers-36/Jujutsu-Kaisen-HD-Wallpaper-126409.jpg" alt="">
+      </div>
+      <div class="photo">
+        <img src="https://cdn.bhdw.net/im/jujutsu-kaisen-yuuji-itadori-kento-nanami-wallpaper-89921_w635.webp" alt="">
+      </div>
+    </section>
+
+    <!-- Section 1 -->
+    <section id="about" class="container">
+      <div class="top">
+        <h1>ប្រវត្តិសង្ខេប</h1>
+        <hr color="red" size="5">
+      </div>
+      <div class="bottom">
+        <div class="left">
+          <img src="https://i.pinimg.com/1200x/7c/4d/b2/7c4db2692a0bd969c3afa0bb092efeda.jpg" alt="">
+        </div>
+        <div class="right">
+          <h1>Battle though the heaven</h1>
+          <hr size="5" color="red" width="100%">
+          <p>
+            ជីយៅសៅនិយាយកំ សៅប៉ាណង (Xiao Yan), គឺជាបុបផានិងបុរាបនាទាំងអាកាសជុលកៀរជាមាមាផលយៃរូបកម
+            បបិលភូលយអាការរុកកុម។ នៅពេញ 15 ឆ្នាំ ជាកម្លយធាប់ បាលពីកម្លូណងក្នុងបុរីជាកុលដានប៉ាលជាអីមេីកេណាអុញភ្នាសាសាសៃវ
+            កូងជីយប្រាបូកម៉ ប៉រលៃរុ (Yao Lao), ដ៏ស្រកាដ៊កមៃបេបីសេរាផាងៃ ប្រកូកាណាពុជៃបូញឃាញកល។ សៅប៉ាណាបៃវិចៃអេពីបៃគណាំជាកុ
+            រេំ, ជៃសៃលុលកុលទីកាណាបាដង៉កុធកុញរូមក័ម និងសាធាកចកាវទា។សម្រស៊លកុយជា
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2 (reversed) -->
+    <section class="con2">
+      <div class="t2">
+        <h1>ប្រវត្តិសង្ខេប</h1>
+        <hr color="red" size="5">
+      </div>
+      <div class="b2">
+        <div class="r2">
+          <h1>Battle though the heaven</h1>
+          <hr size="5" color="red" width="100%">
+          <p>
+            ជីយៅសៅនិយាយកំ សៅប៉ាណង (Xiao Yan), គឺជាបុបផានិងបុរាបនាទាំងអាកាសជុលកៀរជាមាមាផលយៃរូបកម
+            បបិលភូលយអាការរុកកុម។ នៅពេញ 15 ឆ្នាំ ជាកម្លយធាប់ បាលពីកម្លូណងក្នុងបុរីជាកុលដានប៉ាលជាអីមេីកេណាអុញភ្នាសាសាសៃវ
+            កូងជីយប្រាបូកម៉ ប៉រលៃរុ (Yao Lao), ដ៏ស្រកាដ៊កមៃបេបីសេរាផាងៃ ប្រកូកាណាពុជៃបូញឃាញកល។ សៅប៉ាណាបៃវិចៃអេពីបៃគណាំជាកុ
+            រេំ, ជៃសៃលុលកុលទីកាណាបាដង៉កុធកុញរូមក័ម និងសាធាកចកាវទា។សម្រស៊លកុយជា
+          </p>
+        </div>
+        <div class="l2">
+          <img src="https://i.pinimg.com/1200x/7c/4d/b2/7c4db2692a0bd969c3afa0bb092efeda.jpg" alt="">
+        </div>
+      </div>
+    </section>
+
+    <!-- Horizontal scroller -->
+    <section id="menu" class="session2">
+      <div class="h1"><h1>New coming soon</h1></div>
+      <div class="scroll">
+        <div class="scrol-box">Today<br>14<br>August</div>
+        <div class="scrol-box">Today<br>14<br>August</div>
+        <div class="scrol-box">Today<br>14<br>August</div>
+        <div class="scrol-box">Today<br>14<br>August</div>
+        <div class="scrol-box">Today<br>14<br>August</div>
+        <div class="scrol-box">Today<br>14<br>August</div>
+        <div class="scrol-box">Today<br>14<br>August</div>
+        <div class="scrol-box">Today<br>14<br>August</div>
+        <div class="scrol-box">Today<br>14<br>August</div>
+        <div class="scrol-box">Today<br>14<br>August</div>
+        <div class="scrol-box">Today<br>14<br>August</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Optional: add 'stuck' shadow when scrolled -->
+  <script>
+    const nav = document.getElementById('mainNav');
+    const onScroll = () => {
+      if (window.scrollY > 4) nav.classList.add('is-stuck');
+      else nav.classList.remove('is-stuck');
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>

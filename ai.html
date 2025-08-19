@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anime Portal</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dangrek&family=Hanuman:wght@100..900&family=Kdam+Thmor+Pro&family=Odor+Mean+Chey&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Dangrek&family=Hanuman:wght@100..900&family=Kdam+Thmor+Pro&family=Odor+Mean+Chey&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 100%;
+        font-family: "Poppins", sans-serif;
+        background-color: #ffffff;
+        font-family: "Arial", sans-serif;
+      }
+
+      .img {
+        background: linear-gradient(45deg, #00d4ff, #090979);
+        width: 100%;
+        height: 150px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .img::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      header {
+        width: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      header ul {
+        display: flex;
+        padding-left: 30px;
+        gap: 20px;
+        list-style: none;
+      }
+
+      header li {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      header i {
+        font-size: 2.5rem;
+        transition: all 0.3s ease;
+      }
+
+      header li:hover {
+        transform: translateY(-5px);
+      }
+
+      header li:hover i {
+        font-size: 3rem;
+        color: #ffd700;
+      }
+
+      .text-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding-right: 30px;
+      }
+
+      .text-header p {
+        font-size: 1.2rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      span {
+        padding: 5px 10px;
+        background-color: rgba(248, 248, 248, 0.95);
+        color: rgb(0, 0, 0);
+        border-radius: 10px;
+        font-size: 14px;
+        position: absolute;
+        bottom: -40px;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      header li:hover span {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* FIXED NAVIGATION */
+      nav {
+        width: 100%;
+        background: linear-gradient(to right, #09203f, #537895);
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        padding-left: 30px;
+      }
+
+      .logo-text {
+        font-size: 2rem;
+        font-weight: bold;
+        background: linear-gradient(45deg, #ffd700, #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      button {
+        padding: 10px 20px;
+        border: none;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(45deg, #764ba2, #667eea);
+      }
+
+      nav ul {
+        display: flex;
+        padding-right: 30px;
+        list-style: none;
+        gap: 30px;
+        align-items: center;
+      }
+
+      nav ul li a {
+        font-size: 1.2rem;
+        color: rgb(229, 229, 229);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        padding: 10px 15px;
+        border-radius: 20px;
+      }
+
+      nav ul li a:hover {
+        color: #ffd700;
+        background: rgba(255, 215, 0, 0.1);
+        transform: scale(1.1);
+      }
+
+      nav ul li i {
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      nav ul li i:hover {
+        color: #ffd700;
+        transform: scale(1.2);
+      }
+
+      /* SLIDESHOW */
+      .slideshow-container {
+        width: 100%;
+        height: 600px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .photo {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        position: absolute;
+        animation: fadeCycle 15s infinite;
+      }
+
+      .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .photo:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .photo:nth-child(2) {
+        animation-delay: 3s;
+      }
+      .photo:nth-child(3) {
+        animation-delay: 6s;
+      }
+      .photo:nth-child(4) {
+        animation-delay: 9s;
+      }
+      .photo:nth-child(5) {
+        animation-delay: 12s;
+      }
+
+      @keyframes fadeCycle {
+        0% {
+          opacity: 0;
+          transform: scale(1.02);
+        }
+        10% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        20% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        30% {
+          opacity: 0;
+          transform: scale(1.02);
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* CONTENT SECTIONS */
+      .container,
+      .con2 {
+        width: 100%;
+        min-height: 800px;
+        background: linear-gradient(135deg, #2c1810, #3d2914);
+        padding: 40px 0;
+      }
+
+      .top,
+      .t2 {
+        text-align: center;
+        margin-bottom: 50px;
+        /* margin-right: 100px; */
+      }
+
+      .top h1,
+      .t2 h1 {
+        font-size: 3rem;
+        color: #ff6b6b;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .bottom,
+      .b2 {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        padding: 0 50px;
+      }
+
+      .left,
+      .l2,
+      .right,
+      .r2 {
+        flex: 1;
+      }
+
+      .left img,
+      .l2 img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        margin-left: 100px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        transition: transform 0.5s ease;
+      }
+
+      .left img:hover,
+      .l2 img:hover {
+        transform: scale(1.05) rotateY(5deg);
+      }
+
+      .right h1,
+      .r2 h1 {
+        margin-bottom: 300px;
+        font-size: 2.5rem;
+        color: #ffd700;
+        margin-bottom: 20px;
+      }
+
+      .right p,
+      .r2 p {
+        color: white;
+        margin-top: 30px;
+        text-indent: 50px;
+        font-size: 2rem;
+        line-height: 1.8;
+        text-align: justify;
+      }
+
+      /* COMING SOON SECTION */
+      .session2 {
+        width: 100%;
+        padding: 60px 20px;
+        background: linear-gradient(135deg, #2c1810, #3d2914);
+      }
+
+      .session2 h1 {
+        color: #ff6b6b;
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .scroll {
+        display: flex;
+        gap: 30px;
+        overflow-x: auto;
+        padding: 20px 0;
+      }
+
+      .scroll::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      /* .scroll::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+
+        .scroll::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 10px;
+        } */
+
+      .scrol-box {
+        min-width: 200px;
+        height: 120px;
+        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        border: 2px solid #333;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .scrol-box:hover {
+        border-color: #ffd700;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+      }
+
+      /* LOGIN MODAL */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+      }
+
+      .modal-content {
+        position: relative;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        margin: 5% auto;
+        padding: 0;
+        width: 90%;
+        max-width: 500px;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+
+      .close {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        padding: 20px;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .close:hover {
+        color: #ffd700;
+      }
+
+      .login-form {
+        padding: 40px;
+        text-align: center;
+      }
+
+      .login-form h2 {
+        color: white;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+        text-align: left;
+      }
+
+      .form-group label {
+        display: block;
+        color: white;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .form-group input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .form-group input:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      }
+
+      .login-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(45deg, #ffd700, #ff6b6b);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+      }
+
+      /* ANIMATIONS */
+      .fade-in-left {
+        animation: fadeInLeft 1s ease-out;
+      }
+
+      .fade-in-right {
+        animation: fadeInRight 1s ease-out;
+      }
+
+      @keyframes fadeInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-100px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeInRight {
+        from {
+          opacity: 0;
+          transform: translateX(100px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .bottom,
+        .b2 {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        nav ul {
+          gap: 15px;
+        }
+
+        .logo {
+          gap: 15px;
+        }
+
+        button {
+          padding: 8px 16px;
+          font-size: 0.9rem;
+        }
+      }
+      .hr{
+        width: 100%;
+        background-color: #1a1a1a;
+        justify-content: center;align-items: center;display: flex;
+        flex-direction: column;
+        padding: 20px;
+        font-size: larger;
+      
+      }
+      .hr h1{
+       padding-bottom: 20px;
+       margin-bottom: 5px;
+      }
+      /* footer */
+      .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            position: relative;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -0.5rem;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, #4f46e5, #06b6d4);
+            border-radius: 1px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-section ul li a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #06b6d4;
+            transform: translateX(5px);
+        }
+        
+        .app-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .app-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .app-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .social-icon:hover {
+            background: rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .payment-logo {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-logo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .aba-payway {
+            background: linear-gradient(135deg, #1e40af, #06b6d4);
+            color: white;
+        }
+        
+        .visa {
+            background: linear-gradient(135deg, #1a1f71, #0066b2);
+            color: white;
+        }
+        
+        .mastercard {
+            background: linear-gradient(135deg, #eb001b, #f79e1b);
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: #aaaaaa;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .app-buttons,
+            .social-icons,
+            .payment-methods {
+                justify-content: center;
+            }
+            
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+     
+    </style>
+  </head>
+  <body>
+    <div class="img"></div>
+
+    <header>
+      <ul>
+        <li>
+          <i class="fa-brands fa-square-facebook"></i>
+          <span>Facebook</span>
+        </li>
+        <li>
+          <i class="fa-brands fa-instagram"></i>
+          <span>Instagram</span>
+        </li>
+        <li>
+          <i class="fa-brands fa-youtube"></i>
+          <span>YouTube</span>
+        </li>
+      </ul>
+      <div class="text-header">
+        <i class="fa-solid fa-message"></i>
+        <p>Have questions? Call now +1 (818) 23 45 678</p>
+      </div>
+    </header>
+
+    <nav>
+      <div class="logo">
+        <div class="logo-text">ANIME PORTAL</div>
+        <button type="button" onclick="openLoginModal()">ចូលគណនី</button>
+        <button type="button">ចុះឈ្មោះ</button>
+      </div>
+
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><i class="fa-solid fa-magnifying-glass"></i></li>
+        <li><i class="fa-solid fa-cart-shopping"></i></li>
+      </ul>
+    </nav>
+
+    <section class="slideshow-container">
+      <div class="photo">
+        <img
+          src="https://www.baltana.com/files/wallpapers-36/Jujutsu-Kaisen-Widescreen-Wallpapers-126415.jpg"
+          alt="Jujutsu Kaisen"
+        />
+      </div>
+      <div class="photo">
+        <img
+          src="https://www.baltana.com/files/wallpapers-36/Jujutsu-Kaisen-Background-HD-Wallpapers-126400.jpg"
+          alt="Jujutsu Kaisen"
+        />
+      </div>
+      <div class="photo">
+        <img
+          src="https://www.baltana.com/files/wallpapers-36/Jujutsu-Kaisen-HD-Wallpapers-126410.jpg"
+          alt="Jujutsu Kaisen"
+        />
+      </div>
+      <div class="photo">
+        <img
+          src="https://www.baltana.com/files/wallpapers-36/Jujutsu-Kaisen-HD-Wallpaper-126409.jpg"
+          alt="Jujutsu Kaisen"
+        />
+      </div>
+      <div class="photo">
+        <img
+          src="https://i.pinimg.com/1200x/cd/20/8b/cd208b572c9594b876dcc12904836908.jpg"
+          alt="Jujutsu Kaisen"
+        />
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="top">
+        <h1>ប្រវត្តិសង្ខេប</h1>
+        <hr color="#ff6b6b" size="3" />
+      </div>
+      <div class="bottom">
+        <div class="left fade-in-left">
+          <img
+            src="https://i.pinimg.com/736x/22/ba/97/22ba97ba48fa3b049e6e8c993b513be1.jpg"
+            alt="Battle Through Heaven"
+          />
+        </div>
+        <div class="right fade-in-right">
+          <h1>Battle Through The Heaven</h1>
+          <hr size="3" color="#ffd700" width="100%" />
+          <p>
+            សាតូរុ ជាបុរសខ្ពស់ស្រឡះ មានរាងស្គម និងសាច់ដុំរឹងមាំ
+            នៅចុងវ័យចុះក្មេងពីរដប់ ហើយត្រូវបានគេចាត់ទុកថាមានសម្រស់ពិសេស
+            ជាពិសេសដោយសារព្រះពុម្ពមុខរបស់គាត់។ គាត់មានសក់ពណ៌សដូចព្រិល និងភ្នែក
+            "Six Eyes" ដែលមានពណ៌ខៀវចែងចាំង។ ជាធម្មតា សាតូរុ
+            នឹងគ្របភ្នែករបស់គាត់ដោយក្រណាត់ពណ៌ខ្មៅ ដែលជួយឲ្យសក់របស់គាត់ឈរឡើង
+            ហើយធ្វើឲ្យវាមានរូបរាងជ្រុលជ្រួញជាងមុន។ នៅពេលមានរូបរាងធម្មតា
+            គាត់ពាក់វ៉ែនតាការពារកម្តៅថ្ងៃ និងទម្លាក់សក់រហូតដល់គល់ក។
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="con2">
+      <div class="t2">
+        <h1>ការបន្ត</h1>
+        <hr color="#ff6b6b" size="3" />
+      </div>
+      <div class="b2">
+        <div class="r2 fade-in-left">
+          <h1>The Journey Continues</h1>
+          <hr size="3" color="#ffd700" width="100%" />
+          <p>
+            នៅពេលធ្វើការ សាតូរុ ពាក់អាវពណ៌ខៀវចាស់មានសោរឡើងចុង ក collar ខ្ពស់
+            និងធំទូលាយ ពាក់ជាមួយខោពណ៌ខ្មៅស្គម និងស្បែកជើងខ្មៅប្រណិត។
+            មុននឹងផ្លាស់ទៅពាក់ក្រណាត់ពណ៌ខ្មៅសាមញ្ញ
+            គាត់ធ្លាប់ពាក់ក្រណាត់រុំភ្នែកជាបន្ទះ។ សាតូរុ
+            ចូលចិត្តពាក់សម្លៀកបំពាក់ថ្លៃ
+            និងមានស្ទាយធម្មតាច្រើនដែលគាត់សម្របជាមួយវ៉ែនតាការពារកម្តៅថ្ងៃ។
+            ជាសិស្សនៅសាលា Tokyo Jujutsu High សាតូរុ
+            ពាក់ឯកសណ្ឋានសាលាដោយមានវ៉ែនតាការពារកម្តៅថ្ងៃ
+            មុនពេលគាត់ចាប់ផ្តើមពាក់ក្រណាត់បិទភ្នែក។
+          </p>
+        </div>
+        <div class="l2 fade-in-right">
+          <img
+            src="https://i.pinimg.com/736x/54/8a/a0/548aa019e9c76bce4f56e2b604c29e7f.jpg"
+            alt="Battle Through Heaven"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="session2">
+      <div class="h1">
+        <h1>New Coming Soon</h1>
+      </div>
+      <div class="scroll">
+        <div class="scrol-box"><strong>Today</strong><br />15<br />August</div>
+        <div class="scrol-box">
+          <strong>Tomorrow</strong><br />16<br />August
+        </div>
+        <div class="scrol-box">
+          <strong>Next Week</strong><br />22<br />August
+        </div>
+        <div class="scrol-box"><strong>September</strong><br />01<br />Sep</div>
+        <div class="scrol-box"><strong>October</strong><br />15<br />Oct</div>
+        <div class="scrol-box"><strong>November</strong><br />20<br />Nov</div>
+        <div class="scrol-box"><strong>December</strong><br />25<br />Dec</div>
+        <div class="scrol-box"><strong>New Year</strong><br />01<br />Jan</div>
+      </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeLoginModal()">&times;</span>
+        <div class="login-form">
+          <h2>ចូលគណនី</h2>
+          <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+              <label for="username">ឈ្មោះអ្នកប្រើប្រាស់:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="បញ្ចូលឈ្មោះអ្នកប្រើប្រាស់"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">លេខសម្ងាត់:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="បញ្ចូលលេខសម្ងាត់"
+                required
+              />
+            </div>
+            <button type="submit" class="login-btn">ចូលគណនី</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Login Modal Functions
+      function openLoginModal() {
+        document.getElementById("loginModal").style.display = "block";
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeLoginModal() {
+        document.getElementById("loginModal").style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+
+      function handleLogin(event) {
+        event.preventDefault();
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        // Simple demo login (replace with real authentication)
+        if (username && password) {
+          alert(`សូមស្វាគមន៍ ${username}! ការចូលគណនីបានសំរេច។`);
+          closeLoginModal();
+          // Reset form
+          document.getElementById("username").value = "";
+          document.getElementById("password").value = "";
+        }
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        const modal = document.getElementById("loginModal");
+        if (event.target == modal) {
+          closeLoginModal();
+        }
+      };
+
+      // Smooth scroll for navigation
+      document.querySelectorAll('nav a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Animation on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateX(0)";
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements for animation
+      document.addEventListener("DOMContentLoaded", () => {
+        const animatedElements = document.querySelectorAll(
+          ".fade-in-left, .fade-in-right"
+        );
+        animatedElements.forEach((el) => {
+          el.style.opacity = "0";
+          el.style.transform = el.classList.contains("fade-in-left")
+            ? "translateX(-100px)"
+            : "translateX(100px)";
+          el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+          observer.observe(el);
+        });
+      });
+    </script> 
+    <div class="hr">
+      <a href=""><h1> Click More</h1></a>
+      <hr style="width: 1700px;height: 5px; border-radius: 20px;"  color="red" >
+    </div>
+       <!-- <div class="main-content">
+        <p>Your website content goes here...</p>
+    </div> -->
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Cinemas</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>More</h3>
+                    <ul>
+                        <li><a href="#">Promotions</a></li>
+                        <li><a href="#">News & Activity</a></li>
+                        <li><a href="#">My Ticket</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy & Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Download Our App</h3>
+                    <div class="app-buttons">
+                        <a href="#" class="app-button" title="Download on Google Play">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.92 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="app-button" title="Download on App Store">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Follow Our Social Media</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" title="Facebook">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" title="Instagram">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" title="YouTube">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" title="TikTok">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon" title="Telegram">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-section" style="margin-bottom: 2rem;">
+                <h3>Payment</h3>
+                <div class="payment-methods">
+                    <div class="payment-logo aba-payway">ABA PAYWAY</div>
+                    <div class="payment-logo visa">VISA</div>
+                    <div class="payment-logo mastercard">Mastercard</div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>All rights reserved © 2025</p>
+            </div>
+        </div>
+    </footer>
+  </body>
+</html>
